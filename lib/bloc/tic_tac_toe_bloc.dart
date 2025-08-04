@@ -1,17 +1,3 @@
-// import 'package:bloc/bloc.dart';
-// import 'package:meta/meta.dart';
-//
-// part 'tic_tac_toe_event.dart';
-// part 'tic_tac_toe_state.dart';
-//
-// class TicTacToeBloc extends Bloc<TicTacToeEvent, TicTacToeState> {
-//   TicTacToeBloc() : super(TicTacToeInitial()) {
-//     on<TicTacToeEvent>((event, emit) {
-//       // TODO: implement event handler
-//     });
-//   }
-// }
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'tic_tac_toe_event.dart';
 import 'tic_tac_toe_state.dart';

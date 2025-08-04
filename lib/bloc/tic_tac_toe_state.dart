@@ -1,10 +1,3 @@
-// part of 'tic_tac_toe_bloc.dart';
-//
-// @immutable
-// sealed class TicTacToeState {}
-//
-// final class TicTacToeInitial extends TicTacToeState {}
-
 class TicTacToeState {
   final List<String> board;
   final String currentPlayer;

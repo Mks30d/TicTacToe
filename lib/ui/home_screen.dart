@@ -1,14 +1,3 @@
-// import 'package:flutter/material.dart';
-//
-// class HomeScreen extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       body: Center(child: Text("Tic Tac Toe")),
-//     );
-//   }
-// }
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tic_tac_toe/main.dart';
@@ -55,6 +44,43 @@ class HomeScreen extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+  
+  Widget buildCell(TicTacToeState state){
+    return GridView.builder(
+      shrinkWrap: true,
+      itemCount: 9,
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 3,
+      ),
+      itemBuilder: (context, index) {
+        final mark = state.board[index];
+        final isWinningCell = state.winLine.contains(index);
+        return GestureDetector(
+          onTap: () => context.read<TicTacToeBloc>().add(
+            CellTappedEvent(index),
+          ),
+          child: Container(
+            margin: const EdgeInsets.all(5),
+            decoration: BoxDecoration(
+              color: isWinningCell ? Colors.green : primaryColor,
+              // border: Border.all(),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Center(
+              child: Text(
+                mark,
+                style: TextStyle(
+                  fontSize: 36,
+                  color: mark == 'X' ? Colors.red : Colors.green,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 
@@ -109,40 +135,7 @@ class HomeScreen extends StatelessWidget {
                   color: secondaryColor,
                   borderRadius: BorderRadius.circular(18),
                 ),
-                child: GridView.builder(
-                  shrinkWrap: true,
-                  itemCount: 9,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
-                  ),
-                  itemBuilder: (context, index) {
-                    final mark = state.board[index];
-                    final isWinningCell = state.winLine.contains(index);
-                    return GestureDetector(
-                      onTap: () => context.read<TicTacToeBloc>().add(
-                        CellTappedEvent(index),
-                      ),
-                      child: Container(
-                        margin: const EdgeInsets.all(5),
-                        decoration: BoxDecoration(
-                          color: isWinningCell ? Colors.green : primaryColor,
-                          // border: Border.all(),
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: Center(
-                          child: Text(
-                            mark,
-                            style: TextStyle(
-                              fontSize: 36,
-                              color: mark == 'X' ? Colors.red : Colors.green,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                ),
+                child: buildCell(state),
               ),
               const SizedBox(height: 20),
               ElevatedButton(
